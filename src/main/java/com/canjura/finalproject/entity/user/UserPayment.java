@@ -1,6 +1,7 @@
 package com.canjura.finalproject.entity.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Transactional
+@NoArgsConstructor
 @Table(name = "user_payment")
 @Getter @Setter
 public class UserPayment {
@@ -23,12 +25,8 @@ public class UserPayment {
     @NotBlank(message = "Please enter the payment type")
     private String type;
 
-    public UserPayment(int id, String payment, String type) {
-        this.id = id;
+    public UserPayment(String payment, String type) {
         this.payment = payment;
         this.type = type;
-    }
-
-    public UserPayment() {
     }
 }
