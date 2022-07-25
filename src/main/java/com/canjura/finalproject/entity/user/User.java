@@ -3,11 +3,8 @@ package com.canjura.finalproject.entity.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import javax.validation.Constraint;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
@@ -37,13 +34,26 @@ public class User {
     @Email(message = "Email is not a valid formatted email address")
     @NotNull(message = "Email cannot be null")
     @NotBlank(message = "Please enter the email")
-    @Size(min = 8, max = 100,message = "Email must be between 8 and 100")
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @UniqueElements
-    @Valid
+//    @UniqueElements
     @NotNull(message = "The address information should not be null")
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     private List<UserAddress> address;
+
+    @NotNull
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
+    private List<UserPayment> payments;
+
+    public User(String name, String phone, String email, List<UserAddress> address, List<UserPayment> payments) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.payments = payments;
+    }
 }
