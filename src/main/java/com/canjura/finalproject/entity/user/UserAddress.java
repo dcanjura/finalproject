@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Transactional
-@Table(name = "useraddress")
+@Table(name = "user_address")
 @NoArgsConstructor
 @Getter @Setter
 public class UserAddress {
@@ -20,11 +20,14 @@ public class UserAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull(message = "Address should not be null")
-    @NotBlank(message = "Please enter the address")
+    @NotBlank(message = "Please enter the address info")
     private String address;
 
-    @NotNull(message = "Address should not be null")
     @NotBlank(message = "Please enter the address type")
     private String type;
+
+    public UserAddress(String address, String type) {
+        this.address = address;
+        this.type = type;
+    }
 }
