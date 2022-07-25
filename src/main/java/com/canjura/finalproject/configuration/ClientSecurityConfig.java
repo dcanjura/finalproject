@@ -17,7 +17,8 @@ public class ClientSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and().oauth2Login().and().logout()
-                .and().csrf().disable();
+                .and().oauth2ResourceServer().jwt();
+        http.csrf().disable();
     }
 
     @Bean
