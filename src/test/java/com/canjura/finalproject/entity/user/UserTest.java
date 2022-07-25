@@ -29,7 +29,7 @@ public class UserTest {
         UserAddress address = new UserAddress("Montrial 10 pje 5, Mejicanos", "Home");
         address.setId(1);
         addresses.add(address);
-        UserPayment payment = new UserPayment(1, "4123654769531456", "Credit Card");
+        UserPayment payment = new UserPayment("4123654769531456", "Credit Card");
         payment.setId(1);
         payments.add(payment);
     }
