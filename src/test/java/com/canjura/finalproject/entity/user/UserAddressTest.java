@@ -26,7 +26,7 @@ public class UserAddressTest {
 
     @Test
     @DisplayName("UserAddress Null Values")
-    public void userAddressNullValuesTest(){
+    void userAddressNullValuesTest(){
         //Arr
         address = new UserAddress();
 
@@ -34,12 +34,12 @@ public class UserAddressTest {
         violations = validator.validate(address);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(2);
+        Assertions.assertThat(violations).hasSize(2);
     }
 
     @Test
     @DisplayName("UserAddress Null Address Test")
-    public void userAddressNullAddressTest(){
+    void userAddressNullAddressTest(){
         //Arr
         address = new UserAddress("", "Home");
 
@@ -47,15 +47,15 @@ public class UserAddressTest {
         violations = validator.validate(address);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(1);
+        Assertions.assertThat(violations).hasSize(1);
         ConstraintViolation<UserAddress> violation = violations.iterator().next();
-        Assertions.assertThat("Please enter the address info").isEqualTo(violation.getMessage());
-        Assertions.assertThat("address").isEqualTo(violation.getPropertyPath().toString());
+        Assertions.assertThat(violation.getMessage()).isEqualTo("Please enter the address info");
+        Assertions.assertThat(violation.getPropertyPath().toString()).hasToString("address");
     }
 
     @Test
     @DisplayName("UserAddress Null Type Test")
-    public void userAddressNullTypeTest(){
+    void userAddressNullTypeTest(){
         //Arr
         address = new UserAddress("Montrial 10 pje 5, Mejicanos", "");
 
@@ -63,9 +63,9 @@ public class UserAddressTest {
         violations = validator.validate(address);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(1);
+        Assertions.assertThat(violations).hasSize(1);
         ConstraintViolation<UserAddress> violation = violations.iterator().next();
-        Assertions.assertThat("Please enter the address type").isEqualTo(violation.getMessage());
-        Assertions.assertThat("type").isEqualTo(violation.getPropertyPath().toString());
+        Assertions.assertThat(violation.getMessage()).isEqualTo("Please enter the address type");
+        Assertions.assertThat(violation.getPropertyPath().toString()).hasToString("type");
     }
 }
