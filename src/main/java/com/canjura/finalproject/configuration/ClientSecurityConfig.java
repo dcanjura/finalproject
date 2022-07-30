@@ -1,6 +1,7 @@
 package com.canjura.finalproject.configuration;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,12 +10,14 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepo
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Configuration
 @EnableWebSecurity
 public class ClientSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
+                .antMatchers("/actuator/health").permitAll()
                 .anyRequest().authenticated()
                 .and().oauth2Login().and().logout()
                 .and().oauth2ResourceServer().jwt();
