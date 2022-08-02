@@ -1,4 +1,4 @@
-package com.canjura.finalproject.entity.user;
+package com.canjura.finalproject.entity;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -41,9 +41,9 @@ public class UserTest {
 
     @Test
     @DisplayName("User Entity No Violations")
-    public void userEntityNoViolations(){
+     void userEntityNoViolations(){
         //Arr
-        testUser = new User("Juan Perez", "+50378797879", "juan@gmail.com", addresses, payments);
+        testUser = new User(1, "Juan Perez", "+50378797879", "juan@gmail.com", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
@@ -54,121 +54,121 @@ public class UserTest {
 
     @Test
     @DisplayName("User Entity Email Violation Test")
-    public void userEntityEmailViolation(){
+     void userEntityEmailViolation(){
         //Arr
-        testUser = new User("Juan Perez", "+50378797879", "juan", addresses, payments);
+        testUser = new User(1, "Juan Perez", "+50378797879", "juan", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(1);
+        Assertions.assertThat(violations).hasSize(1);
         ConstraintViolation<User> violation = violations.iterator().next();
-        Assertions.assertThat("Email is not a valid formatted email address").isEqualTo(violation.getMessage());
-        Assertions.assertThat("email").isEqualTo(violation.getPropertyPath().toString());
+        Assertions.assertThat(violation.getMessage()).isEqualTo("Email is not a valid formatted email address");
+        Assertions.assertThat(violation.getPropertyPath().toString()).hasToString("email");
     }
 
     @Test
     @DisplayName("User Entity Null Values Test")
-    public void userEntityNullValuesTest(){
+    void userEntityNullValuesTest(){
         //Arr
-        testUser = new User(null, null, null, null, null);
+        testUser = new User(1, null, null, null, null, null);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(13);
+        Assertions.assertThat(violations).hasSize(13);
     }
 
     @Test
     @DisplayName("User Entity Null Name Test")
-    public void userEntityNullNameTest(){
+     void userEntityNullNameTest(){
         //Arr
-        testUser = new User("", "+50378787878", "juan@gmail.com", addresses, payments);
+        testUser = new User(1, "", "+50378787878", "juan@gmail.com", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(2);
+        Assertions.assertThat(violations).hasSize(2);
     }
 
     @Test
     @DisplayName("User Entity Phone Violations Test")
-    public void userEntityPhoneViolationsTest(){
+     void userEntityPhoneViolationsTest(){
         //Arr
-        testUser = new User("Juan Perez", "", "juan@gmail.com", addresses, payments);
+        testUser = new User(1, "Juan Perez", "", "juan@gmail.com", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(3);
+        Assertions.assertThat(violations).hasSize(3);
     }
 
     @Test
     @DisplayName("User Entity Email and Name Test")
-    public void userEntityEmailAndNameViolationsTest(){
+     void userEntityEmailAndNameViolationsTest(){
         //Arr
-        testUser = new User("", "+50378787878", "j", addresses, payments);
+        testUser = new User(1, "", "+50378787878", "j", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(3);
+        Assertions.assertThat(violations).hasSize(3);
     }
 
     @Test
     @DisplayName("User Entity Email and Phone Test")
-    public void userEntityEmailAndPhoneViolationsTest(){
+     void userEntityEmailAndPhoneViolationsTest(){
         //Arr
-        testUser = new User("Juan Perez", "", "j", addresses, payments);
+        testUser = new User(1, "Juan Perez", "", "j", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(4).isEqualTo(violations.size());
+        Assertions.assertThat(violations).hasSize(4);
     }
 
     @Test
     @DisplayName("User Entity Email, Name and Phone Test")
-    public void userEntityEmailNameAndPhoneViolationsTest(){
+     void userEntityEmailNameAndPhoneViolationsTest(){
         //Arr
-        testUser = new User("", "", "", addresses, payments);
+        testUser = new User(1, "", "", "", addresses, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(6);
+        Assertions.assertThat(violations).hasSize(6);
     }
 
     @Test
     @DisplayName("User Entity Null Addresses Test")
-    public void userEntityNullAddressesViolationTest(){
+     void userEntityNullAddressesViolationTest(){
         //Arr
-        testUser = new User("Juan Perez", "+50378797879", "juan@gmail.com", null, payments);
+        testUser = new User(1, "Juan Perez", "+50378797879", "juan@gmail.com", null, payments);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(2);
+        Assertions.assertThat(violations).hasSize(2);
     }
 
     @Test
     @DisplayName("User Entity Null Payments Test")
-    public void userEntityNullPaymentsViolationTest(){
+     void userEntityNullPaymentsViolationTest(){
         //Arr
-        testUser = new User("Juan Perez", "+50378797879", "juan@gmail.com", addresses, null);
+        testUser = new User(1, "Juan Perez", "+50378797879", "juan@gmail.com", addresses, null);
 
         //Act
         Set<ConstraintViolation<User>> violations = validator.validate(testUser);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(2);
+        Assertions.assertThat(violations).hasSize(2);
     }
 }
