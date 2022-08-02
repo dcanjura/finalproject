@@ -1,4 +1,4 @@
-package com.canjura.finalproject.entity.user;
+package com.canjura.finalproject.entity;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,7 +26,7 @@ public class UserPaymentTest {
 
     @Test
     @DisplayName("UserAddress Null Values")
-    public void userAddressNullValuesTest(){
+    void userAddressNullValuesTest(){
         //Arr
         payment = new UserPayment();
 
@@ -34,12 +34,12 @@ public class UserPaymentTest {
         violations = validator.validate(payment);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(2);
+        Assertions.assertThat(violations).hasSize(2);
     }
 
     @Test
     @DisplayName("UserAddress Null Address Test")
-    public void userAddressNullAddressTest(){
+    void userAddressNullAddressTest(){
         //Arr
         payment = new UserPayment("", "Credit Card");
 
@@ -47,15 +47,15 @@ public class UserPaymentTest {
         violations = validator.validate(payment);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(1);
+        Assertions.assertThat(violations).hasSize(1);
         ConstraintViolation<UserPayment> violation = violations.iterator().next();
-        Assertions.assertThat("Please enter the payment info").isEqualTo(violation.getMessage());
-        Assertions.assertThat("payment").isEqualTo(violation.getPropertyPath().toString());
+        Assertions.assertThat(violation.getMessage()).isEqualTo("Please enter the payment info");
+        Assertions.assertThat(violation.getPropertyPath().toString()).hasToString("payment");
     }
 
     @Test
     @DisplayName("UserAddress Null Type Test")
-    public void userAddressNullTypeTest(){
+    void userAddressNullTypeTest(){
         //Arr
         payment = new UserPayment("Montrial 10 pje 5, Mejicanos", "");
 
@@ -63,9 +63,9 @@ public class UserPaymentTest {
         violations = validator.validate(payment);
 
         //Assert
-        Assertions.assertThat(violations.size()).isEqualTo(1);
+        Assertions.assertThat(violations).hasSize(1);
         ConstraintViolation<UserPayment> violation = violations.iterator().next();
-        Assertions.assertThat("Please enter the payment type").isEqualTo(violation.getMessage());
-        Assertions.assertThat("type").isEqualTo(violation.getPropertyPath().toString());
+        Assertions.assertThat(violation.getMessage()).isEqualTo("Please enter the payment type");
+        Assertions.assertThat(violation.getPropertyPath().toString()).hasToString("type");
     }
 }
