@@ -26,4 +26,11 @@ public class Checkout {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_checkout_id", referencedColumnName = "checkout_id")
     private List<CheckoutProduct> products = new ArrayList<>();
+
+    public Checkout(String userEmail, String addressInfo, String paymentInfo, List<CheckoutProduct> products) {
+        this.userEmail = userEmail;
+        this.addressInfo = addressInfo;
+        this.paymentInfo = paymentInfo;
+        this.products = products;
+    }
 }
