@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter @Setter
@@ -28,7 +29,7 @@ public class OrderDTO {
     private String paymentInfo;
 
     @NotNull(message = "Products List should not be null")
-    @NotBlank(message = "Please enter at least 1 product")
+    @Size(min = 1, message = "It should be at least 1 product")
     @Valid
     private List<OrderProductDTO> products;
 
