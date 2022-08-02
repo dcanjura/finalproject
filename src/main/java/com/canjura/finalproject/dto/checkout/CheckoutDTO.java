@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter @Setter
@@ -29,8 +27,9 @@ public class CheckoutDTO {
     private String paymentInfo;
 
 
-    @Valid
     @NotNull(message = "It should be at least 1 product")
+    @Size(min = 1, message = "It should be at least 1 product")
+    @Valid
     @JsonProperty("products")
     List<CheckoutProductDTO> products;
 }
