@@ -1,4 +1,4 @@
-package com.canjura.finalproject.entity.user;
+package com.canjura.finalproject.entity;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
