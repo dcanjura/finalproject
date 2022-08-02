@@ -15,7 +15,7 @@ import java.util.Optional;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void extendMessageConverters(final List<HttpMessageConverter<?>> converters){
-        Optional<HttpMessageConverter<?>> converterFound = converters.stream().filter(c -> c instanceof AbstractJackson2HttpMessageConverter).findFirst();
+        Optional<HttpMessageConverter<?>> converterFound = converters.stream().filter(AbstractJackson2HttpMessageConverter.class::isInstance).findFirst();
         if(converterFound.isPresent()){
             final AbstractJackson2HttpMessageConverter converter = (AbstractJackson2HttpMessageConverter) converterFound.get();
             converter.getObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
