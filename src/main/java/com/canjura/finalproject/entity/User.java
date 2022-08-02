@@ -1,4 +1,4 @@
-package com.canjura.finalproject.entity.user;
+package com.canjura.finalproject.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +36,6 @@ public class User {
     @NotBlank(message = "Please enter the email")
     private String email;
 
-//    @UniqueElements
     @NotNull(message = "The address information should not be null")
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -49,7 +48,8 @@ public class User {
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     private List<UserPayment> payments;
 
-    public User(String name, String phone, String email, List<UserAddress> address, List<UserPayment> payments) {
+    public User(int id, String name, String phone, String email, List<UserAddress> address, List<UserPayment> payments) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
