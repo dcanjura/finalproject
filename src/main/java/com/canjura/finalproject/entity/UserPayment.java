@@ -1,4 +1,4 @@
-package com.canjura.finalproject.entity.user;
+package com.canjura.finalproject.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
