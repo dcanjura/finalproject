@@ -5,9 +5,9 @@ import com.canjura.finalproject.entity.checkout.CheckoutProduct;
 import com.canjura.finalproject.entity.order.Order;
 import com.canjura.finalproject.entity.order.OrderProduct;
 import com.canjura.finalproject.entity.product.Product;
-import com.canjura.finalproject.entity.user.User;
-import com.canjura.finalproject.entity.user.UserAddress;
-import com.canjura.finalproject.entity.user.UserPayment;
+import com.canjura.finalproject.entity.User;
+import com.canjura.finalproject.entity.UserAddress;
+import com.canjura.finalproject.entity.UserPayment;
 import com.canjura.finalproject.repository.checkout.CheckoutRepo;
 import com.canjura.finalproject.repository.order.OrderRepo;
 import com.canjura.finalproject.repository.product.ProductRepo;
@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +77,7 @@ public class OrderService {
         return orderRepo.getAllByUserEmail(email);
     }
 
-    private AddressStrategy getAddressStrategy(String type){
+    public AddressStrategy getAddressStrategy(String type){
         if(type.equalsIgnoreCase("home")){
             return new HomeAddress();
         }else{
@@ -86,7 +85,7 @@ public class OrderService {
         }
     }
 
-    private PayStrategy getPaymentStrategy(String type){
+    public PayStrategy getPaymentStrategy(String type){
         if(type.equalsIgnoreCase("credit card")){
             return new PayByCreditCard();
         }else{
@@ -94,7 +93,7 @@ public class OrderService {
         }
     }
 
-    private Double getTotalAmount(Checkout checkout){
+    public Double getTotalAmount(Checkout checkout){
         double total = 0.0;
         List<CheckoutProduct> products = checkout.getProducts();
         for(CheckoutProduct product : products){
@@ -108,7 +107,7 @@ public class OrderService {
         List<String> higherList = new ArrayList<>();
         for(CheckoutProduct product : checkoutProducts){
             Product tempProduct = productRepo.findProductByName(product.getName());
-            if(tempProduct.getStock() < 0){
+            if(tempProduct.getStock() < 1){
                 higherList.add(tempProduct.getName() + " is out of stock");
             }else {
                 if(product.getQuantity() > tempProduct.getStock()){
@@ -119,7 +118,7 @@ public class OrderService {
         return higherList;
     }
 
-    private List<OrderProduct> createOrderList(List<CheckoutProduct> products){
+    public List<OrderProduct> createOrderList(List<CheckoutProduct> products){
         List<OrderProduct> list = new ArrayList<>();
         for(CheckoutProduct checkoutProduct: products){
             OrderProduct temp = new OrderProduct();
@@ -130,7 +129,7 @@ public class OrderService {
         return list;
     }
 
-    private void updateProducts(List<OrderProduct> products){
+    public void updateProducts(List<OrderProduct> products){
         for(OrderProduct product : products){
             Product temp = productRepo.findProductByName(product.getName());
             temp.setStock(temp.getStock() - product.getQuantity());
