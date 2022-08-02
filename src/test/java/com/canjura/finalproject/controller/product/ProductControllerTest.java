@@ -8,7 +8,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -31,7 +30,7 @@ class ProductControllerTest {
     @Mock
     private ProductService service;
 
-    private static final List<Product> products = new ArrayList<>();
+    private static List<Product> products = new ArrayList<>();
 
     private static final ProductDTO productDTO = new ProductDTO();
 
@@ -68,11 +67,10 @@ class ProductControllerTest {
     @DisplayName("Get all products fail")
     void getAllProductsFailTest() throws ResponseStatusException{
         //Arr
-        ResponseStatusException exception = new ResponseStatusException(HttpStatus.NOT_FOUND, "No products were found");
+        products = new ArrayList<>();
 
         //Act
         Mockito.when(this.service.getProducts()).thenReturn(products);
-        Mockito.when(this.controller.getProducts()).thenThrow(exception);
 
         //Assert
         org.junit.jupiter.api.Assertions.assertThrows(ResponseStatusException.class, () -> this.controller.getProducts());
