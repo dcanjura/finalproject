@@ -27,4 +27,13 @@ public class Order {
     private List<OrderProduct> orderProducts = new ArrayList<>();
     private Double total;
     private String deliveryInfo;
+
+    public Order(String userInfo, String userEmail, String paymentInfo, List<OrderProduct> orderProducts, Double total, String deliveryInfo) {
+        this.userInfo = userInfo;
+        this.userEmail = userEmail;
+        this.paymentInfo = paymentInfo;
+        this.orderProducts = orderProducts;
+        this.total = total;
+        this.deliveryInfo = deliveryInfo;
+    }
 }
