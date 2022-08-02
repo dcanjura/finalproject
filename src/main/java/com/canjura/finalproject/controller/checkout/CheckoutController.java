@@ -36,14 +36,9 @@ public class CheckoutController {
         return service.saveCheckoutProcess(checkoutMapper.checkoutDTOToCheckout(checkoutDTO));
     }
 
-    @PutMapping("update/checkout")
-    public ResponseEntity<String> updateCheckoutProcess(@RequestBody CheckoutDTO checkoutDTO){
-        return service.updateCheckoutProcess(checkoutMapper.checkoutDTOToCheckout(checkoutDTO));
-    }
-
 
     @DeleteMapping("delete/checkout/by")
-    public ResponseEntity<String> deleteCheckout(@RequestParam String email){
+    public ResponseEntity<String> deleteCheckout(@RequestParam String email) {
         return service.deleteCheckoutByUserEmail(email);
     }
 }
