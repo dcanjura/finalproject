@@ -30,23 +30,17 @@ public class CheckoutService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("We could not find a user with the given email");
             }
         }else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Checkout process is already on file");
+            if(checkout.getProducts() != null){
+                Checkout tempCheckout = checkoutRepo.findCheckoutByUserEmail(checkout.getUserEmail());
+                checkout.setId(tempCheckout.getId());
+                checkoutRepo.save(checkout);
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("Checkout process with user email: "+ checkout.getUserEmail() + " updated");
+            }else {
+                checkoutRepo.deleteCheckoutByUserEmail(checkout.getUserEmail());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Products went to 0, checkout process was deleted");
+            }
         }
     }
-
-    public ResponseEntity<String> updateCheckoutProcess(Checkout checkout){
-        if(checkout.getProducts().isEmpty()){
-            checkoutRepo.deleteAll();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Products went to 0, checkout process was deleted");
-        }else {
-            Checkout tempCheckout = checkoutRepo.findCheckoutByUserEmail(checkout.getUserEmail());
-            checkout.setId(tempCheckout.getId());
-            checkoutRepo.save(checkout);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Checkout process with user email: "+ checkout.getUserEmail() + " updated");
-        }
-    }
-
-
 
     public ResponseEntity<String> deleteCheckoutByUserEmail(String email){
         if(checkoutRepo.findCheckoutByUserEmail(email) != null){
