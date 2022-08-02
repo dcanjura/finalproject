@@ -1,7 +1,7 @@
 package com.canjura.finalproject.strategies.payment;
 
-import com.canjura.finalproject.entity.user.User;
-import com.canjura.finalproject.entity.user.UserPayment;
+import com.canjura.finalproject.entity.User;
+import com.canjura.finalproject.entity.UserPayment;
 import java.util.List;
 
 public class PayByPayPal implements PayStrategy{
