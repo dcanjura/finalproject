@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -15,7 +16,7 @@ public class ProductDTO {
     @JsonProperty("name")
     private String name;
 
-    @NotNull(message = "Stock amount should not be null")
+    @Min(value = 1, message = "Stock amount should not be 0")
     @JsonProperty("stock")
     private int stock;
 
